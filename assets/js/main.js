@@ -240,13 +240,12 @@ const app = {
     // Khi tiến độ bài hát thay đổi
     audio.ontimeupdate = function () {
       if (audio.duration) {
-        const progressPercent = Math.floor((audio.currentTime / audio.duration) * 100
-        );
+        const progressPercent = Math.floor((audio.currentTime / audio.duration) * 100);
         progress.value = progressPercent;
       }
     };
     // Xử lý khi tua song
-    progress.onchange = function (e) {
+    progress.oninput = function (e) {
       const seekTime = (audio.duration / 100) * e.target.value;
       audio.currentTime = seekTime;
     };
