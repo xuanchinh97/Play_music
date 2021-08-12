@@ -237,13 +237,17 @@ const app = {
       player.classList.remove("playing")
       cdThumAnimate.pause()
     }
+
     // Khi tiến độ bài hát thay đổi
     audio.ontimeupdate = function () {
       if (audio.duration) {
         const progressPercent = Math.floor((audio.currentTime / audio.duration) * 100);
         progress.value = progressPercent;
       }
-    };
+      _this.timeCurrent()
+      _this.timeDuration()
+    }
+
     // Xử lý khi tua song
     progress.oninput = function (e) {
       const seekTime = (audio.duration / 100) * e.target.value;
@@ -375,32 +379,20 @@ const app = {
     }
     return (hours !== 0 ? hours + ':' : '') + minutes + ':' + seconds;
   },
-  generateTime: function () {
-    let durmin = Math.floor(audio.currentTime / 60);
-    let dursec = Math.floor(audio.duration - durmin * 60);
-    let curmin = Math.floor(audio.currentTime / 60);
-    let cursec = Math.floor(audio.currentTime - curmin * 60);
-    if (durmin < 10) {
-      durmin = "0" + durmin;
-    }
-    if (dursec < 10) {
-      dursec = "0" + dursec;
-    }
-    if (curmin < 10) {
-      curmin = "0" + curmin;
-    }
-    if (cursec < 10) {
-      cursec = "0" + cursec;
-    }
-    progresscurrent.textContent = `${curmin}:${cursec}`;
-    progressduration.textContent = `${durmin}:${dursec}`;
-    this.loadCurrentSong()
-    // let dur = this.formatTime(audio.duration)
-    // let cur = this.formatTime(audio.currentTime)
-    // progressduration.textContent = `${dur}`;
-    // progresscurrent.textContent = `${cur}`;
+  // hiển thị thời gian bài hát hiện tại
+  timeCurrent: function () {
+    setInterval(() => {
+      let cur = this.formatTime(audio.currentTime)
+      progresscurrent.textContent = `${cur}`;
+    }, 100)
   },
-
+  //hiển thị thời gian bài hát
+  timeDuration: function () {
+    if (audio.duration) {
+      let dur = this.formatTime(audio.duration)
+      progressduration.textContent = `${dur}`;
+    }
+  },
   start: function () {
     //gán cấu hình từ config vào ứng dụng
     this.loadConfig()
@@ -410,8 +402,6 @@ const app = {
     this.handleEvents()
     //tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
     this.loadCurrentSong()
-    //hiển thị thời gian bài hát
-    this.generateTime()
     // render playlist
     this.render()
     // hiển thị trạng thái ban đầu của button repeat và random
