@@ -6,7 +6,7 @@ const Player_Store_Key = "Store"
 
 const player = $(".player")
 const cd = $(".cd")
-const heading = $("header h2")
+const heading = $("header marquee")
 const cdThumb = $(".cd-thumb")
 const audio = $("#audio")
 const playBtn = $(".btn-toggle-play")

@@ -219,7 +219,7 @@ header h2 {
 }
 
 .song .author {
-  font-size: 12px;
+  font-size: 14px;
   color: #999;
 }
 
@@ -247,15 +247,22 @@ header h2 {
 }
 
 @media (max-width: 739px) {
+  body {
+    background: #d3d3d3;
+  }
   .song {
     margin: 0 16px 12px;
   }
-  body {
-    background: #d3d3d3;
+  .song .title {
+    font-size: 14px;
+  }
+  .song .author {
+    font-size: 13px;
   }
 }
 
 @media (min-width: 1024px) {
+
 }
 
 @keyframes delay {
